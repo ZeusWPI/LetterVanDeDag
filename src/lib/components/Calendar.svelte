@@ -72,7 +72,8 @@
 </span>
 <div class="grid grid-cols-7">
 	{#each WEEKDAYS as weekday}
-		<span class="text-center font-bold w-full pb-1">{weekday}</span>
+		<span class="text-center font-bold w-full pb-1 md:hidden">{weekday.substring(0, 3)}</span>
+		<span class="text-center font-bold w-full pb-1 hidden md:inline">{weekday}</span>
 	{/each}
 	{#if lastMonth.dates.length < 7}
 		{#each lastMonth.dates as day}

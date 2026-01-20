@@ -14,12 +14,12 @@
 <Navbar />
 
 <div class="flex flex-col items-center w-full">
-	<div class="flex flex-col md:flex-row gap-6 w-full justify-center">
-		<div class="md:w-2/5">
+	<div class="flex flex-col lg:flex-row gap-6 w-full justify-center items-center lg:items-start">
+		<div class="lg:w-2/5 w-6/7">
 			<Calendar bind:selectedDate={selectedDate} letterData={data.letters} />
 		</div>
 		{#if selectedLetter || user?.admin}
-			<div class="w-1/5 flex flex-col gap-4">
+			<div class="w-6/7 lg:w-1/5 flex flex-col gap-4">
 				<InfoPanel {selectedLetter} {selectedDate} {user} declarers={data.declarers} />
 			</div>
 		{/if}
