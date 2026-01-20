@@ -12,7 +12,7 @@
 	let dropdownMonth = $derived(selectedDate.getMonth());
 	let dropdownYear = $derived(selectedDate.getFullYear());
 
-	function selectFromDropdown(event: Event) {
+	function selectFromDropdown() {
 		selectedDate = new Date(dropdownYear, dropdownMonth, selectedDate.getDate());
 	}
 

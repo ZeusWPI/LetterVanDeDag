@@ -1,7 +1,6 @@
-import { addDeclarer, addLetter } from '$lib/server/db';
-import type { Declarer, LetterVanDeDag, ZAuthUser } from '$lib/types';
-import { error, invalid, redirect } from '@sveltejs/kit';
-import { writeFile } from 'node:fs/promises';
+import { addDeclarer } from '$lib/server/db';
+import type { Declarer, ZAuthUser } from '$lib/types';
+import { error, redirect } from '@sveltejs/kit';
 
 export async function POST({ request, locals }): Promise<void> {
 	const session = await locals.auth();

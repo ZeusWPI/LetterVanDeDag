@@ -1,6 +1,6 @@
 import { addLetter } from '$lib/server/db';
 import type { LetterVanDeDag, ZAuthUser } from '$lib/types';
-import { error, invalid, redirect } from '@sveltejs/kit';
+import { error, redirect } from '@sveltejs/kit';
 import { writeFile } from 'node:fs/promises';
 
 export async function POST({ request, locals }): Promise<void> {
@@ -40,8 +40,4 @@ export async function POST({ request, locals }): Promise<void> {
 
 		throw redirect(303, '/');
 	}
-}
-
-function cleanEmoji(letter: string) {
-	return letter.replaceAll(':', '');
 }

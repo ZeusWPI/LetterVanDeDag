@@ -24,9 +24,6 @@ db.exec(`
 	  FOREIGN KEY (added_by) REFERENCES users(id)
 	);
 `);
-
-export default db;
-
 export function addLetter(letterVanDeDag: LetterVanDeDag) {
 	const user = db
 		.prepare(
