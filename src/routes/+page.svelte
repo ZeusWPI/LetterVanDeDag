@@ -1,5 +1,4 @@
 <script lang="ts">
-	import Navbar from '$lib/components/Navbar.svelte';
 	import Calendar from '$lib/components/Calendar.svelte';
 	import type { LetterVanDeDag, ZAuthUser } from '$lib/types';
 	import InfoPanel from '$lib/components/InfoPanel.svelte';
@@ -11,17 +10,14 @@
 	let selectedLetter: LetterVanDeDag = $derived(data.letters[selectedDate.toDateString()]);
 </script>
 
-<Navbar />
 
-<div class="flex flex-col items-center w-full">
-	<div class="flex flex-col lg:flex-row gap-6 w-full justify-center items-center lg:items-start">
-		<div class="lg:w-2/5 w-6/7">
-			<Calendar bind:selectedDate={selectedDate} letterData={data.letters} />
-		</div>
-		{#if selectedLetter || user?.admin}
-			<div class="w-6/7 lg:w-1/5 flex flex-col gap-4">
-				<InfoPanel {selectedLetter} {selectedDate} {user} declarers={data.declarers} />
-			</div>
-		{/if}
+<div class="flex flex-col lg:flex-row gap-6 w-full justify-center items-center lg:items-start">
+	<div class="lg:w-2/5 w-6/7">
+		<Calendar bind:selectedDate={selectedDate} letterData={data.letters} />
 	</div>
+	{#if selectedLetter || user?.admin}
+		<div class="w-6/7 lg:w-1/5 flex flex-col gap-4">
+			<InfoPanel {selectedLetter} {selectedDate} {user} declarers={data.declarers} />
+		</div>
+	{/if}
 </div>
