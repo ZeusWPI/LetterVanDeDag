@@ -1,0 +1,18 @@
+@import 'tailwindcss';
+
+@theme {
+    --color-zoranje: #ff7f00;
+    --color-orange: oklch(73.039% 0.18643 52.568);
+    --color-orange-50: oklch(91.294% 0.06104 66.137);
+    --color-orange-100: oklch(88.959% 0.07917 66.514);
+    --color-orange-200: oklch(84.325% 0.11334 64.832);
+    --color-orange-300: oklch(80.212% 0.14353 62.749);
+    --color-orange-400: oklch(76.312% 0.16875 58.585);
+    --color-orange-500: oklch(73.039% 0.18643 52.568);
+    --color-orange-600: oklch(60.813% 0.15379 53.284);
+    --color-orange-700: oklch(47.937% 0.11936 54.537);
+    --color-orange-800: oklch(34.126% 0.08232 57.286);
+    --color-orange-900: oklch(18.734% 0.04117 67.787);
+    --color-orange-950: oklch(7.5348% 0.01676 66.154);
+}
+

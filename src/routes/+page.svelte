@@ -1,0 +1,27 @@
+<script lang="ts">
+	import Navbar from '$lib/components/Navbar.svelte';
+	import Calendar from '$lib/components/Calendar.svelte';
+	import type { LetterVanDeDag, ZAuthUser } from '$lib/types';
+	import InfoPanel from '$lib/components/InfoPanel.svelte';
+
+	let { data } = $props();
+	let user = $derived(data.session?.user as ZAuthUser);
+
+	let selectedDate = $state(new Date(2026, 0, 18));
+	let selectedLetter: LetterVanDeDag = $derived(data.letters[selectedDate.toDateString()]);
+</script>
+
+<Navbar />
+
+<div class="flex flex-col items-center w-full">
+	<div class="flex flex-col md:flex-row gap-6 w-full justify-center">
+		<div class="md:w-2/5">
+			<Calendar bind:selectedDate={selectedDate} letterData={data.letters} />
+		</div>
+		{#if selectedLetter || user?.admin}
+			<div class="w-1/5 flex flex-col gap-4">
+				<InfoPanel {selectedLetter} {selectedDate} {user} declarers={data.declarers} />
+			</div>
+		{/if}
+	</div>
+</div>
