@@ -18,7 +18,7 @@
 
 {#if disabled}
 	<button onclick={onclick}
-					class="aspect-square  border-1 rounded border-gray-200 bg-gray-100 relative cursor-default ">
+					class="aspect-square  border-1 rounded border-gray-200 dark:border-zinc-600 bg-gray-100 dark:bg-zinc-700 relative cursor-default ">
 		<span class="absolute left-2 text-zinc-400">{dayNum}</span>
 		<span
 			class="flex items-center justify-center h-full w-full md:text-2xl">
@@ -36,8 +36,8 @@
 	</button>
 {:else if active}
 	<button onclick={onclick}
-					class=" aspect-square border-3 rounded border-orange-200 bg-orange-50 relative  cursor-default ">
-		<span class="absolute left-2 text-orange-700 font-bold">{dayNum}</span>
+					class=" aspect-square border-3 rounded border-orange-200 dark:border-orange-400 bg-orange-50 dark:bg-orange-500/35 relative  cursor-default ">
+		<span class="absolute left-2 text-orange-700 dark:text-orange-50 font-bold">{dayNum}</span>
 		<span
 			class="flex items-center justify-center h-full w-full md:text-2xl">
 			{#if letterData?.imageUrl}
@@ -54,7 +54,8 @@
 		{/if}
 	</button>
 {:else}
-	<button onclick={onclick} class="aspect-square  border-1 rounded border-gray-200 bg-white relative  cursor-default ">
+	<button onclick={onclick}
+					class="aspect-square  border-1 rounded border-gray-200 dark:border-zinc-600 bg-white dark:bg-zinc-800 relative  cursor-default ">
 		<span class="absolute left-2 text-gray-400">{dayNum}</span>
 		<span
 			class="flex items-center justify-center h-full w-full md:text-2xl">

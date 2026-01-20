@@ -56,13 +56,13 @@
 			<Icon icon="material-symbols:arrow-forward-ios-rounded" /></button>
 	</span>
 	<span>
-	<select class="mx-1 px-2 rounded-lg border-gray-200 border-3"
+	<select class="mx-1 px-2 rounded-lg border-gray-200 dark:border-zinc-600 border-3"
 					bind:value={dropdownMonth} onchange={selectFromDropdown}>
 			{#each MONTHS as month, i}
 				<option value={i}>{month}</option>
 			{/each}
 		</select>
-		<select class="mx-1 px-2 rounded-lg border-gray-200 border-3"
+		<select class="mx-1 px-2 rounded-lg border-gray-200 dark:border-zinc-600 border-3"
 						bind:value={dropdownYear} onchange={selectFromDropdown}>
 			{#each getDropdownYears() as year}
 				<option value={year}>{year}</option>
