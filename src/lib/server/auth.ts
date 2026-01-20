@@ -17,7 +17,6 @@ export const { handle, signIn, signOut } = SvelteKitAuth({
 			token: 'https://zauth.zeus.gent/oauth/token',
 			userinfo: 'https://zauth.zeus.gent/current_user',
 			profile(profile): ZAuthUser {
-				console.log(profile.roles.includes('lettervandedag_manager'));
 				return {
 					id: profile.id,
 					zauthId: profile.id,
@@ -30,12 +29,10 @@ export const { handle, signIn, signOut } = SvelteKitAuth({
 	],
 	callbacks: {
 		async jwt({ token, user }) {
-			console.log(user);
 			if (user) token.user = user;
 			return token;
 		},
 		async session({ session, token }) {
-			console.log(token);
 			session.user = token.user as any;
 			return session;
 		}

@@ -5,7 +5,6 @@ export const load = async (event) => {
 	const session = await event.locals.auth();
 
 	const declarers = getDeclarers();
-	console.log(declarers);
 
 	const letter_list = getLetters();
 

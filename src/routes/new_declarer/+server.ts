@@ -6,7 +6,6 @@ export async function POST({ request, locals }): Promise<void> {
 	const session = await locals.auth();
 	if (session && (session.user as ZAuthUser)?.admin) {
 		const data = await request.formData();
-		console.log(data);
 
 		const id = data.get('id') as string | null;
 		const username = data.get('username') as string | null;
