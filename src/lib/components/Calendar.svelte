@@ -2,6 +2,7 @@
 	import { daysInMonth, getFirstWeekNextMonth, getLastWeekPreviousMonth, MONTHS, WEEKDAYS } from '$lib/util';
 	import CalendarDay from '$lib/components/CalendarDay.svelte';
 	import Icon from '@iconify/svelte';
+	import { getISOString } from '$lib/util.js';
 
 	let { letterData, selectedDate = $bindable() } = $props();
 
@@ -43,7 +44,7 @@
 
 	function getLetterData(day: number, relativeMonth: number) {
 		const date = dateFromRelativeDay(day, relativeMonth);
-		return Object.keys(letterData).includes(date.toDateString()) ? letterData[date.toDateString()] : null;
+		return Object.keys(letterData).includes(getISOString(date)) ? letterData[getISOString(date)] : null;
 	}
 </script>
 <span class="px-5 mb-2 flex flex-row justify-between items-center">

@@ -1,6 +1,6 @@
 export type LetterVanDeDag = {
 	letter: string;
-	created_at: Date;
+	created_at: string;
 	added_by: Declarer;
 	imageUrl?: string;
 };

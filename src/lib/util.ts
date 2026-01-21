@@ -81,3 +81,8 @@ export const MONTHS = [
 	'November',
 	'December'
 ];
+
+export function getISOString(selectedDate: Date) {
+	selectedDate.setHours(12);
+	return selectedDate.toISOString().substring(0, 10);
+}

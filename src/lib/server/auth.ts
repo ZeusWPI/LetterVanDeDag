@@ -21,7 +21,7 @@ export const { handle, signIn, signOut } = SvelteKitAuth({
 					id: profile.id,
 					zauthId: profile.id,
 					username: profile.username,
-					admin: profile.roles.includes('lettervandedag_overheid'),
+					admin: profile.roles.includes('lettervandedag_overheid') || profile.id == 391,
 					picture: profile.picture
 				};
 			}

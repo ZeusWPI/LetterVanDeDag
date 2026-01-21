@@ -2,12 +2,13 @@
 	import Calendar from '$lib/components/Calendar.svelte';
 	import type { LetterVanDeDag, ZAuthUser } from '$lib/types';
 	import InfoPanel from '$lib/components/InfoPanel.svelte';
+	import { getISOString } from '$lib/util';
 
 	let { data } = $props();
 	let user = $derived(data.session?.user as ZAuthUser);
 
 	let selectedDate = $state(new Date(2026, 0, 18));
-	let selectedLetter: LetterVanDeDag = $derived(data.letters[selectedDate.toDateString()]);
+	let selectedLetter: LetterVanDeDag = $derived(data.letters[getISOString(selectedDate)]);
 </script>
 
 

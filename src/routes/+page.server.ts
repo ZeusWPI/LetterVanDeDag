@@ -9,7 +9,7 @@ export const load = async (event) => {
 	const letter_list = getLetters();
 
 	let letters: { [day: string]: LetterVanDeDag } = {};
-	letter_list.forEach((l) => (letters[l.created_at.toDateString()] = l));
+	letter_list.forEach((l) => (letters[l.created_at] = l));
 
 	return { letters, session, declarers };
 };

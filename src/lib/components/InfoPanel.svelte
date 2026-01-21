@@ -1,11 +1,14 @@
 <script lang="ts">
+	import { getISOString } from '$lib/util';
+
 	let { selectedLetter, selectedDate, user, declarers } = $props();
+
 
 </script>
 
 {#if selectedLetter}
 	<div class="border-2  p-3 border-gray-100 dark:border-zinc-700 flex flex-col rounded-lg lg:mt-10">
-		<span class="text-xl font-bold mb-2">{selectedLetter.created_at.toDateString()}</span>
+		<span class="text-xl font-bold mb-2">{selectedLetter.created_at}</span>
 		<span><b class="mr-2">Letter:</b>{selectedLetter.letter}</span>
 		<span class="flex flex-row"><b class="mr-2">Declared by:</b><img class="size-6 rounded"
 																																		 src="https://zpi.zeus.gent/image/{selectedLetter.added_by.id}"
@@ -17,7 +20,7 @@
 	<div class="border-2 p-3 border-gray-100 dark:border-zinc-700 rounded-lg">
 		<span class="text-xl font-bold">Update Data</span>
 		<form class="mt-2" method="POST" enctype="multipart/form-data">
-			<input type="hidden" name="created_at" value={selectedDate.toDateString()}>
+			<input type="hidden" name="created_at" value={getISOString(selectedDate)}>
 			<div class="flex flex-row mb-2">
 				<label for="letter" class="font-bold">Letter</label><input
 				class="ml-2 px-2 border-gray-100 dark:border-zinc-700 border-2 rounded w-full"

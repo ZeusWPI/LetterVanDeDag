@@ -47,7 +47,7 @@ export function addLetter(letterVanDeDag: LetterVanDeDag) {
 		ON CONFLICT DO UPDATE SET (letter, added_by, image_url) = (?, ?, ?)
 	`
 	).run(
-		letterVanDeDag.created_at.toISOString().substring(0, 10),
+		letterVanDeDag.created_at,
 		letterVanDeDag.letter,
 		letterVanDeDag.added_by.id,
 		letterVanDeDag.imageUrl,
@@ -55,6 +55,8 @@ export function addLetter(letterVanDeDag: LetterVanDeDag) {
 		letterVanDeDag.added_by.id,
 		letterVanDeDag.imageUrl
 	);
+	console.log('added');
+	console.log(letterVanDeDag);
 }
 
 export function addDeclarer(declarer: Declarer) {
@@ -69,7 +71,7 @@ export function getLetters(): LetterVanDeDag[] {
 		.all()
 		.map((o: any) => {
 			return {
-				created_at: new Date(o.dag),
+				created_at: o.dag,
 				letter: o.letter,
 				added_by: {
 					id: o.userid,

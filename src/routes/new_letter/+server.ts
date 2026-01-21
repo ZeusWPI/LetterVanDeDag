@@ -11,8 +11,7 @@ export async function POST({ request, locals }): Promise<void> {
 		const date = data.get('created_at') as string | null;
 		const letter = data.get('letter') as string | null;
 		const image = data.get('image') as File | null;
-		const declarerId = data.get('id') as string | null;
-		const declarerName = data.get('declarer') as string | null;
+		const declarerId = data.get('declarer') as string | null;
 
 		if (!date || !letter || !declarerId) {
 			throw error(400, 'Not all required fields are present');
@@ -27,10 +26,9 @@ export async function POST({ request, locals }): Promise<void> {
 
 		const result: LetterVanDeDag = {
 			letter: letter,
-			created_at: new Date(date),
+			created_at: date,
 			added_by: {
-				id: Number(declarerId),
-				username: declarerName ? declarerName : undefined
+				id: Number(declarerId)
 			},
 			imageUrl: imageUrl ? imageUrl : undefined
 		};
