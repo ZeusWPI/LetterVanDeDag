@@ -2,6 +2,7 @@ import { addLetter } from '$lib/server/db';
 import type { LetterVanDeDag, ZAuthUser } from '$lib/types';
 import { error, redirect } from '@sveltejs/kit';
 import { writeFile } from 'node:fs/promises';
+import { dev } from '$app/environment';
 
 export async function POST({ request, locals }): Promise<void> {
 	const session = await locals.auth();
@@ -19,7 +20,7 @@ export async function POST({ request, locals }): Promise<void> {
 
 		let imageUrl = null;
 		if (image !== null && image.size > 0) {
-			const filename = `static/images/${image.name}`;
+			const filename = `${dev ? '/static/images' : '/app/build/client/images'}/${image.name}`;
 			await writeFile(filename, Buffer.from(await image?.arrayBuffer()));
 			imageUrl = `/images/${image.name}`;
 		}
