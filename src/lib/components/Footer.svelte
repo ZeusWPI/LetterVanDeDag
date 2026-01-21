@@ -4,7 +4,7 @@
 </script>
 
 <div class="w-full flex flex-row justify-between px-6 mb-3">
-	<a href="https://github.com/ZeusWPI/letter-van-de-dag" class="hover:underline">
+	<a href="https://github.com/ZeusWPI/LetterVanDeDag" class="hover:underline">
 		<img class="inline size-4" src={SvelteIcon} alt="Svelte" />
 		v{PUBLIC_APP_VERSION}
 	</a>
