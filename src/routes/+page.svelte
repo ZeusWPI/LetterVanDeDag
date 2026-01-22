@@ -7,7 +7,7 @@
 	let { data } = $props();
 	let user = $derived(data.session?.user as ZAuthUser);
 
-	let selectedDate = $state(new Date(2026, 0, 18));
+	let selectedDate = $state(new Date());
 	let selectedLetter: LetterVanDeDag = $derived(data.letters[getISOString(selectedDate)]);
 </script>
 
