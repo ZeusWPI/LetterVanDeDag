@@ -3,6 +3,7 @@
 	import type { LetterVanDeDag, ZAuthUser } from '$lib/types';
 	import InfoPanel from '$lib/components/InfoPanel.svelte';
 	import { getISOString } from '$lib/util';
+	import Leaderboard from '$lib/components/Leaderboard.svelte';
 
 	let { data } = $props();
 	let user = $derived(data.session?.user as ZAuthUser);
@@ -11,14 +12,19 @@
 	let selectedLetter: LetterVanDeDag = $derived(data.letters[getISOString(selectedDate)]);
 </script>
 
-
-<div class="flex flex-col lg:flex-row gap-6 w-full justify-center items-center lg:items-start">
-	<div class="lg:w-2/5 w-6/7">
-		<Calendar bind:selectedDate={selectedDate} letterData={data.letters} />
-	</div>
-	{#if selectedLetter || user?.admin}
-		<div class="w-6/7 lg:w-1/5 flex flex-col gap-4">
-			<InfoPanel {selectedLetter} {selectedDate} {user} declarers={data.declarers} />
+<div class="flex w-full flex-col items-center gap-10">
+	<div class="flex w-full flex-col items-center justify-center gap-6 lg:flex-row lg:items-start">
+		<div class="w-6/7 lg:w-2/5">
+			<Calendar bind:selectedDate letterData={data.letters} />
 		</div>
-	{/if}
+		{#if selectedLetter || user?.admin}
+			<div class="flex w-6/7 flex-col gap-4 lg:w-1/5">
+				<InfoPanel {selectedLetter} {selectedDate} {user} declarers={data.declarers} />
+			</div>
+		{/if}
+	</div>
+
+	<div class="w-1/4 self-center">
+		<Leaderboard leaderboard_users={data.leaderboard_users} />
+	</div>
 </div>
