@@ -24,7 +24,7 @@
 		{/if}
 	</div>
 
-	<div class="w-1/4 self-center">
+	<div class="w-6/7 self-center lg:w-1/4">
 		<Leaderboard leaderboard_users={data.leaderboard_users} />
 	</div>
 </div>
