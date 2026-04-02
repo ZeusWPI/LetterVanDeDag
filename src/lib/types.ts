@@ -10,6 +10,13 @@ export type Declarer = {
 	username?: string;
 };
 
+export type LeaderboardUser = {
+	rank: number;
+	id: number;
+	username?: string;
+	count: number;
+};
+
 export type ZAuthUser = {
 	id: string;
 	zauthId: number;
