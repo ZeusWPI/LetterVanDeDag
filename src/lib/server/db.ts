@@ -1,6 +1,6 @@
 import Database from 'better-sqlite3';
 import { env } from '$env/dynamic/private';
-import type { LetterVanDeDag, Declarer } from '$lib/types';
+import type { LetterVanDeDag, Declarer, LeaderboardUser } from '$lib/types';
 
 const db = new Database(env.DB_LOCATION);
 
@@ -86,7 +86,7 @@ export function getDeclarers(): Declarer[] {
 	return db
 		.prepare(
 			`
-		SELECT u.id, u.username, ll.latest_letter_at 
+		SELECT u.id, u.username, ll.latest_letter_at
 		FROM users u
 		LEFT JOIN (
 			SELECT added_by, MAX(dag) AS latest_letter_at
@@ -99,5 +99,21 @@ export function getDeclarers(): Declarer[] {
 		.all()
 		.map((o: any): Declarer => {
 			return { id: o.id, username: o.username };
+		});
+}
+
+export function getLeaderboard(): LeaderboardUser[] {
+	return db
+		.prepare(
+			`
+			SELECT RANK() OVER (ORDER BY COUNT(id) DESC) rank, id, username, COUNT(id) as count
+			FROM letters INNER JOIN users ON letters.added_by = users.id
+			GROUP BY id
+			ORDER BY count DESC;
+    `
+		)
+		.all()
+		.map((o: any): LeaderboardUser => {
+			return { rank: o.rank, id: o.id, username: o.username, count: o.count };
 		});
 }
