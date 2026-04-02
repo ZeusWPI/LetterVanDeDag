@@ -14,17 +14,16 @@
 
 <div class="flex w-full flex-col items-center gap-10">
 	<div class="flex w-full flex-col items-center justify-center gap-6 lg:flex-row lg:items-start">
+		<div class="w-6/7 lg:mt-15 lg:w-1/5">
+			<Leaderboard leaderboard_users={data.leaderboard_users} />
+		</div>
 		<div class="w-6/7 lg:w-2/5">
 			<Calendar bind:selectedDate letterData={data.letters} />
 		</div>
 		{#if selectedLetter || user?.admin}
-			<div class="flex w-6/7 flex-col gap-4 lg:w-1/5">
+			<div class="flex w-6/7 flex-col gap-4 lg:mt-15 lg:w-1/5">
 				<InfoPanel {selectedLetter} {selectedDate} {user} declarers={data.declarers} />
 			</div>
 		{/if}
-	</div>
-
-	<div class="w-6/7 self-center lg:w-1/4">
-		<Leaderboard leaderboard_users={data.leaderboard_users} />
 	</div>
 </div>
