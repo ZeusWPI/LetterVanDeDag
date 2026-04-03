@@ -1,14 +1,15 @@
-import { getDeclarers, getLeaderboard, getLetters } from '$lib/server/db';
-import type { Declarer, LeaderboardUser, LetterVanDeDag } from '$lib/types';
+import { getDeclarers, getLeaderboard, getLetters, getStreaks } from '$lib/server/db';
+import type { Declarer, LeaderboardUser, LetterVanDeDag, Streak } from '$lib/types';
 import type { Session } from '@auth/sveltekit';
 
-type LoadReturn = {
+export type LoadReturn = {
 	letters: {
 		[day: string]: LetterVanDeDag;
 	};
 	session: Session | null;
 	declarers: Declarer[];
 	leaderboard_users: LeaderboardUser[];
+	streaks: Streak[];
 };
 
 export const load = async (event): Promise<LoadReturn> => {
@@ -23,5 +24,7 @@ export const load = async (event): Promise<LoadReturn> => {
 
 	let leaderboard_users = getLeaderboard();
 
-	return { letters, session, declarers, leaderboard_users };
+	let streaks = getStreaks();
+
+	return { letters, session, declarers, leaderboard_users, streaks };
 };

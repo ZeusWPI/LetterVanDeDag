@@ -17,6 +17,12 @@ export type LeaderboardUser = {
 	count: number;
 };
 
+export type Streak = {
+	start: Date;
+	end: Date;
+	user: Declarer;
+};
+
 export type ZAuthUser = {
 	id: string;
 	zauthId: number;

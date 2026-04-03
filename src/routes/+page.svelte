@@ -4,8 +4,10 @@
 	import InfoPanel from '$lib/components/InfoPanel.svelte';
 	import { getISOString } from '$lib/util';
 	import Leaderboard from '$lib/components/Leaderboard.svelte';
+	import type { LoadReturn } from './+page.server';
+	import Timeline from '$lib/components/timeline/Timeline.svelte';
 
-	let { data } = $props();
+	let { data }: { data: LoadReturn } = $props();
 	let user = $derived(data.session?.user as ZAuthUser);
 
 	let selectedDate = $state(new Date());
@@ -27,5 +29,8 @@
 				<InfoPanel {selectedLetter} {selectedDate} {user} declarers={data.declarers} />
 			</div>
 		{/if}
+	</div>
+	<div class="w-6/7">
+		<Timeline streaks={data.streaks}></Timeline>
 	</div>
 </div>
