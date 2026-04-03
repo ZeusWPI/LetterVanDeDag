@@ -24,7 +24,7 @@
 		return Array.from(Array(amount).keys()).map(i => i + oldestDate.getFullYear() + 1);
 	}
 
-	function dateFromRelativeDay(day: number, relativeMonth: number) {
+	function dateFromRelativeMonth(day: number, relativeMonth: number) {
 		let year = selectedDate.getFullYear();
 		let month = selectedDate.getMonth();
 		if (relativeMonth == -1) {
@@ -39,21 +39,29 @@
 	}
 
 	function selectDay(day: number, relativeMonth: number) {
-		selectedDate = dateFromRelativeDay(day, relativeMonth);
+		selectedDate = dateFromRelativeMonth(day, relativeMonth);
+	}
+	function goToRelativeMonth(relativeMonth: number) {
+		let newDate = new Date(selectedDate);
+		newDate.setDate(1);
+		newDate.setMonth(selectedDate.getMonth()+relativeMonth);
+
+		selectedDate = newDate;
+		console.log(`New Date ${selectedDate}`);
 	}
 
 	function getLetterData(day: number, relativeMonth: number) {
-		const date = dateFromRelativeDay(day, relativeMonth);
+		const date = dateFromRelativeMonth(day, relativeMonth);
 		return Object.keys(letterData).includes(getISOString(date)) ? letterData[getISOString(date)] : null;
 	}
 </script>
 <span class="px-5 mb-2 flex flex-row justify-between items-center">
 	<span>
-		<button class="text-xl mr-3 active:bg-gray-100 py-2 px-2 rounded-full"
-						onclick={()=> selectDay(selectedDate.getDate(), -1)}
+		<button class="text-xl mr-3 active:bg-gray-100 dark:active:bg-zinc-700 py-2 px-2 rounded-full"
+						onclick={()=> goToRelativeMonth(-1)}
 		><Icon icon="material-symbols:arrow-back-ios-new-rounded" /></button>
-		<button class="text-xl active:bg-gray-100 py-2 px-2 rounded-full"
-						onclick={()=> selectDay(selectedDate.getDate(), 1)}>
+		<button class="text-xl active:bg-gray-100 dark:active:bg-zinc-700 py-2 px-2 rounded-full"
+						onclick={()=> goToRelativeMonth(1)}>
 			<Icon icon="material-symbols:arrow-forward-ios-rounded" /></button>
 	</span>
 	<span>
