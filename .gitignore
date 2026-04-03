@@ -25,6 +25,8 @@ vite.config.ts.timestamp-*
 .idea
 .vscode
 
+/images/
+
 static/images
 *.db
 *.db.*
