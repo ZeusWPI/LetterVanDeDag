@@ -1,6 +1,6 @@
 import Database from 'better-sqlite3';
 import { env } from '$env/dynamic/private';
-import type { LetterVanDeDag, Declarer, LeaderboardUser } from '$lib/types';
+import type { LetterVanDeDag, Declarer, LeaderboardUser, Streak } from '$lib/types';
 
 const db = new Database(env.DB_LOCATION);
 
@@ -116,4 +116,77 @@ export function getLeaderboard(): LeaderboardUser[] {
 		.map((o: any): LeaderboardUser => {
 			return { rank: o.rank, id: o.id, username: o.username, count: o.count };
 		});
+}
+
+type StreakRow = {
+	dag: string;
+	letter: string;
+	added_by: number;
+	image_url: string;
+	id: number;
+	username: string;
+};
+
+function nexDay(dateStr: string): Date {
+	const d = new Date(dateStr);
+	d.setUTCDate(d.getUTCDate() + 1);
+	return d;
+}
+
+export function getStreaks(): Streak[] {
+	const rows = db
+		.prepare(
+			`
+      SELECT *
+      FROM letters INNER JOIN users ON added_by = id
+      ORDER BY dag ASC;
+      `
+		)
+		.all() as StreakRow[];
+
+	if (rows.length === 0) return [];
+
+	const streaks: Streak[] = [];
+
+	let currStart = rows[0].dag;
+	let currEnd = rows[0].dag;
+	let currUser: Declarer = { id: rows[0].id, username: rows[0].username };
+
+	for (let i = 1; i < rows.length; i++) {
+		const currRow = rows[i];
+		const rowDay = currRow.dag;
+
+		const prevDate = new Date(currEnd);
+		const currDate = new Date(rowDay);
+		// 86400000 is the diff between two consecutve days when they have the exact same time
+		// javascript :(
+		const diffInDays = Math.round((currDate.getTime() - prevDate.getTime()) / 86400000);
+
+		const isSameUser = currRow.id === currUser.id;
+		const isConsecutiveDay = diffInDays === 1;
+
+		if (!isConsecutiveDay || !isSameUser) {
+			// streak ended
+			streaks.push({
+				start: new Date(currStart),
+				end: nexDay(currEnd),
+				user: currUser
+			});
+
+			currStart = rowDay;
+			currEnd = rowDay;
+			currUser = { id: currRow.id, username: currRow.username };
+		} else {
+			currEnd = rowDay;
+		}
+	}
+
+	// push the last day
+	streaks.push({
+		start: new Date(currStart),
+		end: nexDay(currEnd),
+		user: currUser
+	});
+
+	return streaks;
 }
