@@ -13,15 +13,16 @@
 </script>
 
 <div class="flex w-full flex-col items-center gap-10">
-	<div class="flex w-full flex-col items-center justify-center gap-6 lg:flex-row lg:items-start">
-		<div class="w-6/7 lg:mt-15 lg:w-1/5">
+	<div
+		class="grid w-full px-5 lg:px-0 lg:w-5/7 grid-cols-1 lg:grid-cols-4 items-center justify-center gap-6 lg:items-start">
+		<div class="lg:mt-15 row-start-3 lg:row-start-1">
 			<Leaderboard leaderboard_users={data.leaderboard_users} />
 		</div>
-		<div class="w-6/7 lg:w-2/5">
+		<div class="col-span-2">
 			<Calendar bind:selectedDate letterData={data.letters} />
 		</div>
 		{#if selectedLetter || user?.admin}
-			<div class="flex w-6/7 flex-col gap-4 lg:mt-15 lg:w-1/5">
+			<div class="flex flex-col gap-4 row-start-2 lg:row-start-1 lg:col-start-4 lg:mt-15">
 				<InfoPanel {selectedLetter} {selectedDate} {user} declarers={data.declarers} />
 			</div>
 		{/if}
