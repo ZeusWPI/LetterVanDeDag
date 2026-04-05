@@ -153,9 +153,11 @@
 		<span class="text-xl font-bold">Timeline</span>
 	</div>
 
-	<div class="w-full overflow-x-auto px-4 pt-14 pb-12">
+	<!-- use rtl to start scrolling right, then set it back to ltr on the child element -->
+	<div class="w-full overflow-x-auto px-4 pt-14 pb-12" dir="rtl">
 		<div
 			class="relative flex h-8 bg-zinc-900"
+			dir="ltr"
 			style="width: {Math.max(100, (timelineData.totalDays / 30) * 100)}%; min-width: 100%;"
 		>
 			{#each timelineData.segments as segment}
