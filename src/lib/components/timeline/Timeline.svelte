@@ -2,6 +2,29 @@
 	import type { Declarer, Streak } from '$lib/types';
 	import TickComponent from './Tick.svelte';
 	import SegmentComponent from './Segment.svelte';
+	import Tooltip from './Tooltip.svelte';
+
+	let tooltipState = $state({
+		segment: null as any,
+		x: 0,
+		y: 0,
+		visible: false
+	});
+
+	function handleHover(segment: any, node: HTMLElement) {
+		const rect = node.getBoundingClientRect();
+
+		tooltipState = {
+			segment,
+			x: rect.left + rect.width / 2,
+			y: rect.top,
+			visible: true
+		};
+	}
+
+	function handleLeave() {
+		tooltipState.visible = false;
+	}
 
 	export type Segment = {
 		isStreak: boolean;
@@ -112,6 +135,17 @@
 	});
 </script>
 
+<div
+	class="pointer-events-none fixed flex -translate-x-1/2 -translate-y-full flex-col items-center pb-16 transition-opacity duration-200"
+	style="left: {tooltipState.x}px; top: {tooltipState.y}px; opacity: {tooltipState.visible
+		? 1
+		: 0}; visibility: {tooltipState.visible ? 'visible' : 'hidden'}"
+>
+	{#if tooltipState.segment}
+		<Tooltip segment={tooltipState.segment}></Tooltip>
+	{/if}
+</div>
+
 <div class="mt-8 w-full rounded-lg border-2 border-gray-100 dark:border-zinc-700">
 	<div class="relative p-4">
 		<span class="text-xl font-bold">Timeline</span>
@@ -123,7 +157,7 @@
 			style="width: {Math.max(100, (timelineData.totalDays / 30) * 100)}%; min-width: 100%;"
 		>
 			{#each timelineData.segments as segment}
-				<SegmentComponent {segment}></SegmentComponent>
+				<SegmentComponent {segment} onHover={handleHover} onLeave={handleLeave}></SegmentComponent>
 			{/each}
 
 			{#each timelineData.ticks as tick}

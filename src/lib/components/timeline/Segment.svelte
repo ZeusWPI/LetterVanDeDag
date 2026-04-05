@@ -2,21 +2,18 @@
 	import type { Segment } from './Timeline.svelte';
 	import Tooltip from './Tooltip.svelte';
 
-	let { segment }: { segment: Segment } = $props();
+	let { segment, onHover, onLeave } = $props();
 </script>
 
 {#if segment.isStreak}
 	<div
 		class="relative h-full {segment.color} group cursor-pointer border-r-2 border-white/50 transition-all hover:brightness-110 dark:border-zinc-800"
 		style="width: {segment.widthPct}%"
+		onpointerenter={(e) => onHover(segment, e.currentTarget)}
+		onpointerleave={onLeave}
+		role="tooltip"
 	>
 		<div class="absolute -top-12 left-1/2 flex -translate-x-1/2 flex-col items-center">
-			<div
-				class="pointer-events-none absolute bottom-full mb-3 flex w-max origin-bottom flex-col items-center opacity-0 transition-all duration-200 group-hover:opacity-100"
-			>
-				<Tooltip {segment}></Tooltip>
-			</div>
-
 			<!-- avatar -->
 			<img
 				src="https://zpi.zeus.gent/image/{segment.user?.id}"
