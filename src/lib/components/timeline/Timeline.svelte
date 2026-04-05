@@ -59,7 +59,7 @@
 	const MS_PER_DAY = 1000 * 60 * 60 * 24;
 	// calculate the days between 2 dates
 	// feb 1 and feb 2 is 1 day between
-	function daysBetween(start: Date, end: Date): number {
+	export function daysBetween(start: Date, end: Date): number {
 		return Math.round((end.getTime() - start.getTime()) / MS_PER_DAY);
 	}
 
@@ -71,9 +71,9 @@
 		// start the timeline at the first streak
 		const timelineStart = streaks[0].start;
 		const now = new Date();
-		const timelineEnd = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+		const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
 
-		const totalDays = Math.max(1, daysBetween(timelineStart, timelineEnd));
+		const totalDays = Math.max(1, daysBetween(timelineStart, today));
 
 		// make segments
 		// a segment is a visual block on the timeline
@@ -96,6 +96,8 @@
 			}
 
 			const streakDays = daysBetween(streakStart, streakEnd);
+			const displayStreakEnd = structuredClone(streak.end);
+			displayStreakEnd.setDate(displayStreakEnd.getDate() - 1); // damn js is ugly
 			segments.push({
 				isStreak: true,
 				widthPct: (streakDays / totalDays) * 100,
@@ -103,7 +105,7 @@
 				days: streakDays,
 				color: getColorForUser(streak.user?.id),
 				startDate: streak.start,
-				endDate: streak.end
+				endDate: displayStreakEnd
 			});
 
 			currentPointer = streakEnd;
@@ -117,7 +119,7 @@
 			Date.UTC(timelineStart.getUTCFullYear(), timelineStart.getUTCMonth() + 1, 1)
 		);
 
-		while (tickPointer.getTime() < timelineEnd.getTime()) {
+		while (tickPointer.getTime() < today.getTime()) {
 			const diffDays = daysBetween(timelineStart, tickPointer);
 			const positionPct = (diffDays / totalDays) * 100;
 
@@ -136,10 +138,10 @@
 </script>
 
 <div
-	class="pointer-events-none fixed flex -translate-x-1/2 -translate-y-full flex-col items-center pb-16 transition-opacity duration-200"
-	style="left: {tooltipState.x}px; top: {tooltipState.y}px; opacity: {tooltipState.visible
-		? 1
-		: 0}; visibility: {tooltipState.visible ? 'visible' : 'hidden'}"
+	class="pointer-events-none fixed z-100 flex -translate-x-1/2 -translate-y-full flex-col items-center pb-16 transition-opacity duration-200"
+	style="left: {tooltipState.x}px; top: {tooltipState.y}px;
+	    opacity: {tooltipState.visible ? 1 : 0};
+		visibility: {tooltipState.visible ? 'visible' : 'hidden'}"
 >
 	{#if tooltipState.segment}
 		<Tooltip segment={tooltipState.segment}></Tooltip>

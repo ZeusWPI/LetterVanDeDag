@@ -7,7 +7,7 @@
 		return date === undefined
 			? ''
 			: date.toLocaleDateString(undefined, {
-					month: 'short',
+					month: 'long',
 					day: 'numeric',
 					year: 'numeric'
 				});
@@ -18,7 +18,11 @@
 	class="flex flex-col items-center gap-1 rounded bg-gray-900 px-3 py-2 text-xs text-white shadow-lg dark:bg-gray-100 dark:text-gray-900"
 >
 	<span class="text-sm font-bold">{segment.user?.username}</span>
-	<span class="opacity-90">{formatDate(segment.startDate)} — {formatDate(segment.endDate)}</span>
+	{#if segment.startDate?.getTime() === segment.endDate?.getTime()}
+		<span class="opacity-90">{formatDate(segment.startDate)}</span>
+	{:else}
+		<span class="opacity-90">{formatDate(segment.startDate)} — {formatDate(segment.endDate)}</span>
+	{/if}
 	<span class="font-mono text-[10px] opacity-75"
 		>{segment.days} {segment.days === 1 ? 'day' : 'days'}</span
 	>
