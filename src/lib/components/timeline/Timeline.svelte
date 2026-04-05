@@ -45,9 +45,10 @@
 	const timelineData = $derived.by(() => {
 		if (!streaks || streaks.length === 0) return { segments: [], ticks: [], totalDays: 0 };
 
-		// start the timeline at the first streak and end it at the end of the last streak
+		// start the timeline at the first streak
 		const timelineStart = streaks[0].start;
-		const timelineEnd = streaks[streaks.length - 1].end;
+		const now = new Date();
+		const timelineEnd = new Date(now.getFullYear(), now.getMonth(), now.getDate());
 
 		const totalDays = Math.max(1, daysBetween(timelineStart, timelineEnd));
 
@@ -111,16 +112,14 @@
 	});
 </script>
 
-<div
-	class="mt-8 w-full rounded-lg border-2 border-gray-100 bg-white dark:border-zinc-700 dark:bg-zinc-900"
->
-	<div class="relative border-gray-100 p-4">
+<div class="mt-8 w-full rounded-lg border-2 border-gray-100 dark:border-zinc-700">
+	<div class="relative p-4">
 		<span class="text-xl font-bold">Timeline</span>
 	</div>
 
-	<div class="relative w-full overflow-x-auto px-4 pt-24 pb-12">
+	<div class="w-full overflow-x-auto px-4 pt-14 pb-12">
 		<div
-			class="relative flex h-8 rounded-sm bg-gray-200 dark:bg-zinc-800"
+			class="relative flex h-8 bg-zinc-900"
 			style="width: {Math.max(100, (timelineData.totalDays / 30) * 100)}%; min-width: 100%;"
 		>
 			{#each timelineData.segments as segment}

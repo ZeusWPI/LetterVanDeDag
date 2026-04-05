@@ -2,21 +2,15 @@
 	import type { Segment } from './Timeline.svelte';
 	import Tooltip from './Tooltip.svelte';
 
-	function formatDate(date: Date) {
-		return date.toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' });
-	}
-
 	let { segment }: { segment: Segment } = $props();
 </script>
 
 {#if segment.isStreak}
 	<div
-		class="relative h-full {segment.color} group cursor-pointer border-r-2 border-white/50 transition-all hover:brightness-110 dark:border-zinc-900"
+		class="relative h-full {segment.color} group cursor-pointer border-r-2 border-white/50 transition-all hover:brightness-110 dark:border-zinc-800"
 		style="width: {segment.widthPct}%"
 	>
-		<div
-			class="absolute -top-12 left-1/2 z-10 flex -translate-x-1/2 flex-col items-center group-hover:z-50"
-		>
+		<div class="absolute -top-12 left-1/2 flex -translate-x-1/2 flex-col items-center">
 			<div
 				class="pointer-events-none absolute bottom-full mb-3 flex w-max origin-bottom flex-col items-center opacity-0 transition-all duration-200 group-hover:opacity-100"
 			>
@@ -27,7 +21,7 @@
 			<img
 				src="https://zpi.zeus.gent/image/{segment.user?.id}"
 				alt={segment.user?.username}
-				class="relative z-20 size-8 max-w-none min-w-8 shrink-0 rounded-full border-2 border-white bg-white shadow-md transition-transform duration-200 group-hover:-translate-y-1 group-hover:scale-125 dark:border-zinc-700"
+				class="relative size-8 max-w-none min-w-8 shrink-0 rounded-full border-2 border-white bg-white shadow-md transition-transform duration-200 group-hover:-translate-y-1 group-hover:scale-125 dark:border-zinc-700"
 			/>
 			<div class="mt-1 h-3 w-0.5 bg-gray-400 dark:bg-zinc-500"></div>
 		</div>
