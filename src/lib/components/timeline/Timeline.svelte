@@ -96,7 +96,7 @@
 
 			const streakDays = daysBetween(streakStart, streakEnd);
 			const displayStreakEnd = structuredClone(streak.end);
-			displayStreakEnd.setDate(displayStreakEnd.getDate() - 1); // damn js is ugly
+			displayStreakEnd.setUTCDate(displayStreakEnd.getUTCDate() - 1); // damn js is ugly
 			segments.push({
 				isStreak: true,
 				widthPct: (streakDays / totalDays) * 100,
