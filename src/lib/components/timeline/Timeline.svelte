@@ -39,21 +39,20 @@
 	export type Tick = { label: string; isYear: boolean; positionPct: number };
 
 	const userColors = [
+		'bg-zoranje',
 		'bg-blue-500',
 		'bg-green-500',
 		'bg-purple-500',
 		'bg-pink-500',
-		'bg-zoranje',
 		'bg-teal-500',
 		'bg-indigo-500',
 		'bg-yellow-500',
-		'bg-red-500',
-		'bg-cyan-500'
+		'bg-red-500'
 	];
 
 	function getColorForUser(id: number | undefined) {
 		if (id === undefined) return 'bg-gray-500';
-		return userColors[id % userColors.length];
+		return userColors[(id % 17) % userColors.length];
 	}
 
 	const MS_PER_DAY = 1000 * 60 * 60 * 24;
