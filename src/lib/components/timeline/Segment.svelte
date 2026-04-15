@@ -1,7 +1,4 @@
 <script lang="ts">
-	import type { Segment } from './Timeline.svelte';
-	import Tooltip from './Tooltip.svelte';
-
 	let { segment, onHover, onLeave } = $props();
 </script>
 
