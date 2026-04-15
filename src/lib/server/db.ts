@@ -127,7 +127,7 @@ type StreakRow = {
 	username: string;
 };
 
-function nexDay(dateStr: string): Date {
+function nextDay(dateStr: string): Date {
 	const d = new Date(dateStr);
 	d.setUTCDate(d.getUTCDate() + 1);
 	return d;
@@ -158,7 +158,7 @@ export function getStreaks(): Streak[] {
 
 		const prevDate = new Date(currEnd);
 		const currDate = new Date(rowDay);
-		// 86400000 is the diff between two consecutve days when they have the exact same time
+		// 86400000 is the diff between two consecutive days when they have the exact same time
 		// javascript :(
 		const diffInDays = Math.round((currDate.getTime() - prevDate.getTime()) / 86400000);
 
@@ -169,7 +169,7 @@ export function getStreaks(): Streak[] {
 			// streak ended
 			streaks.push({
 				start: new Date(currStart),
-				end: nexDay(currEnd),
+				end: nextDay(currEnd),
 				user: currUser
 			});
 
@@ -184,7 +184,7 @@ export function getStreaks(): Streak[] {
 	// push the last day
 	streaks.push({
 		start: new Date(currStart),
-		end: nexDay(currEnd),
+		end: nextDay(currEnd),
 		user: currUser
 	});
 
