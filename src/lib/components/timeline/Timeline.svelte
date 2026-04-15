@@ -11,7 +11,7 @@
 		visible: false
 	});
 
-	function handleHover(segment: any, node: HTMLElement) {
+	function handleHover(segment: Segment, node: HTMLElement) {
 		const rect = node.getBoundingClientRect();
 
 		tooltipState = {
