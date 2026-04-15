@@ -5,7 +5,7 @@
 	import Tooltip from './Tooltip.svelte';
 
 	let tooltipState = $state({
-		segment: null as any,
+		segment: null as Segment | null,
 		x: 0,
 		y: 0,
 		visible: false
@@ -72,7 +72,7 @@
 		const now = new Date();
 		const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
 
-		const totalDays = Math.max(1, daysBetween(timelineStart, today));
+		const totalDays = Math.max(1, daysBetween(timelineStart, today) + 1);
 
 		// make segments
 		// a segment is a visual block on the timeline
@@ -159,8 +159,14 @@
 			dir="ltr"
 			style="width: {Math.max(100, (timelineData.totalDays / 30) * 100)}%; min-width: 100%;"
 		>
-			{#each timelineData.segments as segment}
-				<SegmentComponent {segment} onHover={handleHover} onLeave={handleLeave}></SegmentComponent>
+			{#each timelineData.segments as segment, i}
+				<SegmentComponent
+					{segment}
+					isFirst={i === 0}
+					isLast={segment.endDate?.toDateString() === new Date().toDateString()}
+					onHover={handleHover}
+					onLeave={handleLeave}
+				></SegmentComponent>
 			{/each}
 
 			{#each timelineData.ticks as tick}

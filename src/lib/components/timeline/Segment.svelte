@@ -1,10 +1,18 @@
 <script lang="ts">
-	let { segment, onHover, onLeave } = $props();
+	let { segment, onHover, onLeave, isFirst, isLast } = $props();
 </script>
 
 {#if segment.isStreak}
 	<div
-		class="relative h-full {segment.color} group cursor-pointer border-r-2 border-zinc-200 transition-all hover:brightness-110 dark:border-zinc-800"
+		class="
+		relative h-full {segment.color} group cursor-pointer
+		{isLast ? '' : 'border-r-2'}
+	    border-zinc-200
+		transition-all hover:brightness-110
+		dark:border-zinc-800
+		{isFirst ? 'rounded-l-lg' : ''}
+		{isLast ? 'rounded-r-lg' : ''}
+		"
 		style="width: {segment.widthPct}%"
 		onpointerenter={(e) => onHover(segment, e.currentTarget)}
 		onpointerleave={onLeave}
