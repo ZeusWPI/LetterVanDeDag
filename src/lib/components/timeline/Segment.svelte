@@ -7,7 +7,7 @@
 
 {#if segment.isStreak}
 	<div
-		class="relative h-full {segment.color} group cursor-pointer border-r-2 border-white/50 transition-all hover:brightness-110 dark:border-zinc-800"
+		class="relative h-full {segment.color} group cursor-pointer border-r-2 border-zinc-200 transition-all hover:brightness-110 dark:border-zinc-800"
 		style="width: {segment.widthPct}%"
 		onpointerenter={(e) => onHover(segment, e.currentTarget)}
 		onpointerleave={onLeave}

@@ -51,7 +51,7 @@
 	];
 
 	function getColorForUser(id: number | undefined) {
-		if (id === undefined) return 'bg-gray-500';
+		if (id === undefined) return '';
 		return userColors[(id % 17) % userColors.length];
 	}
 
@@ -155,7 +155,7 @@
 	<!-- use rtl to start scrolling right, then set it back to ltr on the child element -->
 	<div class="w-full overflow-x-auto px-4 pt-14 pb-12" dir="rtl">
 		<div
-			class="relative flex h-8 bg-zinc-900"
+			class="relative flex h-8 rounded-lg bg-zinc-200 dark:bg-zinc-900"
 			dir="ltr"
 			style="width: {Math.max(100, (timelineData.totalDays / 30) * 100)}%; min-width: 100%;"
 		>
