@@ -18,7 +18,7 @@
 			<img
 				src="https://zpi.zeus.gent/image/{segment.user?.id}"
 				alt={segment.user?.username}
-				class="relative size-8 max-w-none min-w-8 shrink-0 rounded-full border-2 border-white bg-white shadow-md transition-transform duration-200 group-hover:-translate-y-1 group-hover:scale-125 dark:border-zinc-700"
+				class="relative size-8 max-w-none min-w-8 shrink-0 rounded-full border-2 border-zinc-400 bg-white shadow-md transition-transform duration-200 group-hover:-translate-y-1 group-hover:scale-125 dark:border-zinc-700"
 			/>
 			<div class="mt-1 h-3 w-0.5 bg-gray-400 dark:bg-zinc-500"></div>
 		</div>
