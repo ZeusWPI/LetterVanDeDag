@@ -15,7 +15,7 @@
 </script>
 
 <div
-	class="flex flex-col items-center gap-1 rounded bg-gray-900 px-3 py-2 text-xs text-white shadow-lg dark:bg-gray-100 dark:text-gray-900"
+	class="flex flex-col items-center gap-1 rounded bg-gray-100 px-3 py-2 text-xs text-gray-900 shadow-lg dark:bg-gray-900 dark:text-white"
 >
 	<span class="text-sm font-bold">{segment.user?.username}</span>
 	{#if segment.startDate?.getTime() === segment.endDate?.getTime()}
@@ -27,4 +27,4 @@
 		>{segment.days} {segment.days === 1 ? 'day' : 'days'}</span
 	>
 </div>
-<div class="-mt-1 h-2 w-2 rotate-45 bg-gray-900 dark:bg-gray-100"></div>
+<div class="-mt-1 h-2 w-2 rotate-45 bg-gray-100 dark:bg-gray-900"></div>
