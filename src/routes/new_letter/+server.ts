@@ -3,6 +3,7 @@ import type { LetterVanDeDag, ZAuthUser } from '$lib/types';
 import { error, redirect } from '@sveltejs/kit';
 import { writeFile, unlink } from 'node:fs/promises';
 import { env } from '$env/dynamic/private';
+import { v4 as uuidv4 } from 'uuid';
 
 export async function POST({ request, locals }): Promise<void> {
 	const session = await locals.auth();
@@ -22,9 +23,11 @@ export async function POST({ request, locals }): Promise<void> {
 
 		let imageUrl = null;
 		if (image !== null && image.size > 0) {
-			const filename = `${env.IMAGE_PATH}/${image.name}`;
+			const uuid = uuidv4().replace(/-/g, '');
+			const fileExtension = image.name.substring(image.name.lastIndexOf('.'));
+			const filename = `${env.IMAGE_PATH}/${uuid}${fileExtension}`;
 			await writeFile(filename, Buffer.from(await image?.arrayBuffer()));
-			imageUrl = `/images/${image.name}`;
+			imageUrl = `/images/${uuid}${fileExtension}`;
 		}
 
 		const result: LetterVanDeDag = {

@@ -33,6 +33,7 @@
 	"dependencies": {
 		"@auth/sveltekit": "^1.11.1",
 		"better-sqlite3": "^12.6.2",
-		"mime": "^4.1.0"
+		"mime": "^4.1.0",
+		"uuid": "^14.0.1"
 	}
 }
