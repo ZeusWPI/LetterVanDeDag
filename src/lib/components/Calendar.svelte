@@ -41,10 +41,11 @@
 	function selectDay(day: number, relativeMonth: number) {
 		selectedDate = dateFromRelativeMonth(day, relativeMonth);
 	}
+
 	function goToRelativeMonth(relativeMonth: number) {
 		let newDate = new Date(selectedDate);
 		newDate.setDate(1);
-		newDate.setMonth(selectedDate.getMonth()+relativeMonth);
+		newDate.setMonth(selectedDate.getMonth() + relativeMonth);
 
 		selectedDate = newDate;
 		console.log(`New Date ${selectedDate}`);
@@ -57,22 +58,25 @@
 </script>
 <span class="px-5 mb-2 flex flex-row justify-between items-center">
 	<span>
-		<button class="text-xl mr-3 active:bg-gray-100 dark:active:bg-zinc-700 py-2 px-2 rounded-full"
-						onclick={()=> goToRelativeMonth(-1)}
-		><Icon icon="material-symbols:arrow-back-ios-new-rounded" /></button>
-		<button class="text-xl active:bg-gray-100 dark:active:bg-zinc-700 py-2 px-2 rounded-full"
-						onclick={()=> goToRelativeMonth(1)}>
-			<Icon icon="material-symbols:arrow-forward-ios-rounded" /></button>
+		<button class="text-4xl mr-3 active:bg-gray-100 dark:active:bg-zinc-700 py-2 px-2 rounded-full"
+		        onclick={()=> goToRelativeMonth(-1)}
+		><Icon icon="material-symbols:keyboard-arrow-left-rounded" /></button>
+		<button class="text-4xl active:bg-gray-100 dark:active:bg-zinc-700 py-2 px-2 rounded-full"
+		        onclick={()=> goToRelativeMonth(1)}>
+			<Icon icon="material-symbols:keyboard-arrow-right-rounded" /></button>
+		<button class="text-4xl active:bg-gray-100 dark:active:bg-zinc-700 py-2 px-2 rounded-full"
+		        onclick={()=> selectedDate = new Date()}>
+			<Icon icon="material-symbols:keyboard-arrow-down-rounded" /></button>
 	</span>
 	<span>
 	<select class="mx-1 px-2 rounded-lg border-gray-200 dark:border-zinc-600 border-3"
-					bind:value={dropdownMonth} onchange={selectFromDropdown}>
+	        bind:value={dropdownMonth} onchange={selectFromDropdown}>
 			{#each MONTHS as month, i}
 				<option value={i}>{month}</option>
 			{/each}
 		</select>
 		<select class="mx-1 px-2 rounded-lg border-gray-200 dark:border-zinc-600 border-3"
-						bind:value={dropdownYear} onchange={selectFromDropdown}>
+		        bind:value={dropdownYear} onchange={selectFromDropdown}>
 			{#each getDropdownYears() as year}
 				<option value={year}>{year}</option>
 			{/each}
