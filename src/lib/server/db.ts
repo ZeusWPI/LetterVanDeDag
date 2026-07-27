@@ -82,6 +82,34 @@ export function getLetters(): LetterVanDeDag[] {
 		});
 }
 
+export function getLetterByDay(day: string): LetterVanDeDag | null {
+	const o: any = db
+		.prepare(
+			'SELECT dag, letter, image_url, users.id as userid, users.username as username FROM letters JOIN users ON letters.added_by = users.id WHERE dag = ?;'
+		)
+		.get(day);
+	if (!o) {
+		return null;
+	}
+	return {
+		created_at: o.dag,
+		letter: o.letter,
+		added_by: {
+			id: o.userid,
+			username: o.username
+		},
+		imageUrl: o.image_url
+	};
+}
+
+export function getImageLetterCount(imageUrl: string): number {
+	const result = db
+		.prepare('SELECT COUNT(dag) AS count FROM letters WHERE image_url = ?;')
+		.get(imageUrl) as { count: number };
+
+	return result.count;
+}
+
 export function getDeclarers(): Declarer[] {
 	return db
 		.prepare(

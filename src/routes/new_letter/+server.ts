@@ -1,7 +1,7 @@
-import { addLetter } from '$lib/server/db';
+import { addLetter, getImageLetterCount, getLetterByDay } from '$lib/server/db';
 import type { LetterVanDeDag, ZAuthUser } from '$lib/types';
 import { error, redirect } from '@sveltejs/kit';
-import { writeFile } from 'node:fs/promises';
+import { writeFile, unlink } from 'node:fs/promises';
 import { env } from '$env/dynamic/private';
 
 export async function POST({ request, locals }): Promise<void> {
@@ -17,6 +17,8 @@ export async function POST({ request, locals }): Promise<void> {
 		if (!date || !letter || !declarerId) {
 			throw error(400, 'Not all required fields are present');
 		}
+
+		const existingLetter = getLetterByDay(date);
 
 		let imageUrl = null;
 		if (image !== null && image.size > 0) {
@@ -35,6 +37,22 @@ export async function POST({ request, locals }): Promise<void> {
 		};
 
 		addLetter(result);
+
+		if (existingLetter && existingLetter.imageUrl) {
+			console.log(`old image count: ${getImageLetterCount(existingLetter.imageUrl)}`);
+		}
+
+		if (
+			existingLetter &&
+			existingLetter.imageUrl &&
+			getImageLetterCount(existingLetter.imageUrl) === 0
+		) {
+			console.log(
+				`Image ${existingLetter.imageUrl} has no references anymore and is being deleted.}`
+			);
+			const filename = `${env.IMAGE_PATH}/${existingLetter.imageUrl.substring('/images/'.length - 1)}`;
+			await unlink(filename);
+		}
 
 		throw redirect(303, '/');
 	}
