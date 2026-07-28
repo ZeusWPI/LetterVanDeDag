@@ -14,7 +14,7 @@ export async function POST({ request, locals }): Promise<void> {
 	const data = await request.formData();
 
 	const date = data.get('created_at') as string | null;
-	const duplicate = data.get('duplicate') as boolean | null;
+	const duplicate = (data.get('duplicate') as string | null) === 'true';
 	const declarerId = data.get('declarer') as string | null;
 	const originalDate = data.get('original-date') as string | null; // Should be yyyy-mm-dd
 
@@ -34,8 +34,7 @@ export async function POST({ request, locals }): Promise<void> {
 			const filename = `${env.IMAGE_PATH}/${uuid}${fileExtension}`;
 			await writeFile(filename, Buffer.from(await image?.arrayBuffer()));
 			imageUrl = `/images/${uuid}${fileExtension}`;
-			}
-
+		}
 	} else {
 		if (!date || !declarerId || !originalDate) {
 			throw error(400, 'Not all required fields are present');
