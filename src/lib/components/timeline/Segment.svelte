@@ -1,5 +1,5 @@
 <script lang="ts">
-	let { segment, onHover, onLeave, isFirst, isLast } = $props();
+	let { segment, onHover, onLeave, onWheel, isFirst, isLast } = $props();
 </script>
 
 {#if segment.isStreak}
@@ -16,6 +16,7 @@
 		style="width: {segment.widthPct}%"
 		onpointerenter={(e) => onHover(segment, e.currentTarget)}
 		onpointerleave={onLeave}
+		onwheel={onWheel}
 		role="tooltip"
 	>
 		<div class="absolute -top-12 left-1/2 flex -translate-x-1/2 flex-col items-center">
