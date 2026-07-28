@@ -86,3 +86,17 @@ export function getISOString(selectedDate: Date) {
 	selectedDate.setHours(12);
 	return selectedDate.toISOString().substring(0, 10);
 }
+
+export function horizontalScroll(evt: WheelEvent, scrollTarget: HTMLElement | null) {
+	// Source - https://stackoverflow.com/a/76111298
+
+	if (scrollTarget == null) return;
+
+	evt.preventDefault();
+
+	if (evt.deltaY >= -15 && evt.deltaY <= 15) {
+		scrollTarget.scrollLeft += evt.deltaY * 40;
+	} else {
+		scrollTarget.scrollLeft += evt.deltaY * 5;
+	}
+}

@@ -3,6 +3,9 @@
 	import TickComponent from './Tick.svelte';
 	import SegmentComponent from './Segment.svelte';
 	import Tooltip from './Tooltip.svelte';
+	import { horizontalScroll } from '$lib/util';
+
+	let timeline: HTMLDivElement | null = null;
 
 	let tooltipState = $state({
 		segment: null as Segment | null,
@@ -153,11 +156,13 @@
 	</div>
 
 	<!-- use rtl to start scrolling right, then set it back to ltr on the child element -->
-	<div class="w-full overflow-x-auto px-4 pt-14 pb-12" dir="rtl">
+	<div class="w-full overflow-x-auto px-4 pt-14 pb-12"
+	     onwheel={(evt) => horizontalScroll(evt, evt.target as HTMLElement)} bind:this={timeline} dir="rtl">
 		<div
 			class="relative flex h-8 rounded-lg bg-zinc-200 dark:bg-zinc-900"
 			dir="ltr"
 			style="width: {Math.max(100, (timelineData.totalDays / 30) * 100)}%; min-width: 100%;"
+			onwheel={(evt) => horizontalScroll(evt, timeline)}
 		>
 			{#each timelineData.segments as segment, i}
 				<SegmentComponent
@@ -166,6 +171,7 @@
 					isLast={segment.endDate?.toDateString() === new Date().toDateString()}
 					onHover={handleHover}
 					onLeave={handleLeave}
+					onWheel={(evt: WheelEvent) => horizontalScroll(evt, timeline)}
 				></SegmentComponent>
 			{/each}
 
