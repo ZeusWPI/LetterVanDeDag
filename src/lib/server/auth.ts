@@ -1,6 +1,7 @@
 import { SvelteKitAuth } from '@auth/sveltekit';
 import { env } from '$env/dynamic/private';
 import type { ZAuthUser } from '$lib/types';
+import { dev as inDev } from '$app/environment';
 
 export const { handle, signIn, signOut } = SvelteKitAuth({
 	providers: [
@@ -21,10 +22,7 @@ export const { handle, signIn, signOut } = SvelteKitAuth({
 					id: profile.id,
 					zauthId: profile.id,
 					username: profile.username,
-					admin:
-						profile.roles.includes('lettervandedag_overheid') ||
-						profile.id == 391 ||
-						profile.id == 102,
+					admin: profile.roles.includes('lettervandedag_overheid') || inDev,
 					picture: profile.picture
 				};
 			}
