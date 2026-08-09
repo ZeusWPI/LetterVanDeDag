@@ -56,26 +56,26 @@
 		return Object.keys(letterData).includes(getISOString(date)) ? letterData[getISOString(date)] : null;
 	}
 </script>
-<span class="px-5 mb-2 flex flex-row justify-between items-center">
+<span class="lg:px-5 mb-2 flex flex-row justify-between items-center">
 	<span>
-		<button class="text-4xl mr-3 active:bg-gray-100 dark:active:bg-zinc-700 py-2 px-2 rounded-full"
+		<button class="text-2xl lg:text-4xl active:bg-gray-100 dark:active:bg-zinc-700 py-1 px-1 rounded-full"
 		        onclick={()=> goToRelativeMonth(-1)}
 		><Icon icon="material-symbols:keyboard-arrow-left-rounded" /></button>
-		<button class="text-4xl active:bg-gray-100 dark:active:bg-zinc-700 py-2 px-2 rounded-full"
+		<button class="text-2xl lg:text-4xl active:bg-gray-100 dark:active:bg-zinc-700 py-1 px-1 rounded-full"
 		        onclick={()=> goToRelativeMonth(1)}>
 			<Icon icon="material-symbols:keyboard-arrow-right-rounded" /></button>
-		<button class="text-4xl active:bg-gray-100 dark:active:bg-zinc-700 py-2 px-2 rounded-full"
+		<button class="text-2xl lg:text-4xl active:bg-gray-100 dark:active:bg-zinc-700 py-1 px-1 rounded-full"
 		        onclick={()=> selectedDate = new Date()}>
 			<Icon icon="material-symbols:keyboard-arrow-down-rounded" /></button>
 	</span>
-	<span>
-	<select class="mx-1 px-2 rounded-lg border-gray-200 dark:border-zinc-600 border-3"
+	<span class="text-right">
+	<select class="lg:mx-1 px-2 rounded-lg border-gray-200 dark:border-zinc-600 border-3"
 	        bind:value={dropdownMonth} onchange={selectFromDropdown}>
 			{#each MONTHS as month, i}
 				<option value={i}>{month}</option>
 			{/each}
 		</select>
-		<select class="mx-1 px-2 rounded-lg border-gray-200 dark:border-zinc-600 border-3"
+		<select class="lg:mx-1 px-2 rounded-lg border-gray-200 dark:border-zinc-600 border-3"
 		        bind:value={dropdownYear} onchange={selectFromDropdown}>
 			{#each getDropdownYears() as year}
 				<option value={year}>{year}</option>
